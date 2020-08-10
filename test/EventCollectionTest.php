@@ -22,18 +22,13 @@ class EventCollectionTest extends TestCase
         // create an initial event
         $event = new EventCollection();
 
-        $event->setId(1)
-            ->setData('value 1')
+        $event->setData('value 1')
             ->setParams(['test1' => 'test1']);
 
-        $event->setId(2)
-            ->setData('value 2')
+        $event->setData('value 2')
             ->setParams(['test2' => 'test2']);
 
         // we expect to see instead of initial data the changed ones
-        $this->assertEquals($event->getId(), [
-            1, 2
-        ]);
         $this->assertEquals($event->getData(), [
             'value 1',
             'value 2'

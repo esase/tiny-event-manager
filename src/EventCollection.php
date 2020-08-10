@@ -17,17 +17,14 @@ class EventCollection extends AbstractEvent
     /**
      * EventCollection constructor.
      *
-     * @param  null   $id
      * @param  null   $data
      * @param  array  $params
      */
     public function __construct(
-        $id = null,
         $data = null,
         array $params = []
     ) {
         parent::__construct(
-            $id,
             $data,
             $params
         );
@@ -35,22 +32,6 @@ class EventCollection extends AbstractEvent
         if (!is_array($this->data)) {
             $this->data = [];
         }
-
-        if (!is_array($this->id)) {
-            $this->id = [];
-        }
-    }
-
-    /**
-     * @param mixed $id
-     *
-     * @return $this
-     */
-    public function setId($id): AbstractEvent
-    {
-        $this->id[] = $id;
-
-        return $this;
     }
 
     /**

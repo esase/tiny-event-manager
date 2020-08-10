@@ -17,11 +17,6 @@ abstract class AbstractEvent
     /**
      * @var mixed
      */
-    protected $id;
-
-    /**
-     * @var mixed
-     */
     protected $data;
 
     /**
@@ -37,34 +32,16 @@ abstract class AbstractEvent
     /**
      * AbstractEvent constructor.
      *
-     * @param  null   $id
      * @param  null   $data
      * @param  array  $params
      */
     public function __construct(
-        $id = null,
         $data = null,
         array $params = []
     ) {
-        $this->id = $id;
         $this->data = $data;
         $this->params = $params;
     }
-
-    /**
-     * @return mixed
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @param mixed $id
-     *
-     * @return $this
-     */
-    abstract public function setId($id): self;
 
     /**
      * @return mixed

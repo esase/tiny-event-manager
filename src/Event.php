@@ -15,18 +15,6 @@ class Event extends AbstractEvent
 {
 
     /**
-     * @param  mixed  $id
-     *
-     * @return $this
-     */
-    public function setId($id): AbstractEvent
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * @param $data
      *
      * @return $this

@@ -159,6 +159,9 @@ Complete example
                     ]
                 ));
 
+                // we also my stop the full chain of the listeners (other listeners will not be invoked)
+                $event->setStopped();
+
                 // or do other logic ...
 
             }
