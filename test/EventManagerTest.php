@@ -21,6 +21,34 @@ use ReflectionException;
 class EventManagerTest extends TestCase
 {
 
+    public function testIsEventHasSubscribersMethod()
+    {
+        $eventManager = new EventManager(
+            $this->createMock(
+                ContainerInterface::class
+            )
+        );
+
+        $eventManager->subscribe(
+            'test',
+            'TestClass',
+            200
+        );
+
+        $this->assertTrue($eventManager->isEventHasSubscribers('test'));
+    }
+
+    public function testIsEventHasSubscribersMethodUsingEmptySubscribersList()
+    {
+        $eventManager = new EventManager(
+            $this->createMock(
+                ContainerInterface::class
+            )
+        );
+
+        $this->assertFalse($eventManager->isEventHasSubscribers('test'));
+    }
+
     /**
      * @throws ReflectionException
      */
@@ -191,22 +219,24 @@ class EventManagerTest extends TestCase
         $eventMock->expects($this->exactly(3))
             ->method('getData');
 
-
         // register a container
         $container = $this->createMock(
             ContainerInterface::class
         );
         $container->expects($this->exactly(3))
             ->method('get')
-            ->will($this->returnValue(
-                new class { // return anonymous class object
-                    public function __invoke(AbstractEvent $event)
-                    {
-                        $event->getData();
-                    }
+            ->will(
+                $this->returnValue(
+                    new class
+                    { // return anonymous class object
+                        public function __invoke(AbstractEvent $event)
+                        {
+                            $event->getData();
+                        }
 
-                }
-            ));
+                    }
+                )
+            );
 
         $eventManager = new EventManager($container);
 
@@ -243,7 +273,7 @@ class EventManagerTest extends TestCase
 
         $this->assertEquals(
             [
-                'test' => [
+                'test'  => [
                     'sorted'      => true,
                     'subscribers' => [
                         100 => ['TestClass2'],

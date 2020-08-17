@@ -38,6 +38,16 @@ class EventManager
 
     /**
      * @param  string  $eventName
+     *
+     * @return bool
+     */
+    public function isEventHasSubscribers(string $eventName): bool
+    {
+        return isset($this->subscribers[$eventName]);
+    }
+
+    /**
+     * @param  string  $eventName
      * @param  string  $listenerClassName
      * @param  int     $priority
      */
