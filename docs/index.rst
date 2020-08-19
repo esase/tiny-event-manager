@@ -40,12 +40,12 @@ Simple example
             'email' => 'tester@gmail.com'
         ]);
 
-        $serviceManager = new EventManager(
+        $eventManager = new EventManager(
             new ServiceManager()
         );
 
         // notify subscribers about the action
-        $serviceManager->trigger('user.created.event', $event);
+        $eventManager->trigger('user.created.event', $event);
 
         ...
 
@@ -72,11 +72,11 @@ Collection example
 
         $event = new EventCollection();
 
-        $serviceManager = new EventManager(
+        $eventManager = new EventManager(
             new ServiceManager()
         );
 
-        $serviceManager->trigger('core.config_list.event', $event);
+        $eventManager->trigger('core.config_list.event', $event);
 
         ...
 
@@ -100,18 +100,18 @@ Subscribe / unsubscribe example
         use Tiny\EventManager\EventManager;
         use Tiny\ServiceManager\ServiceManager;
 
-        $serviceManager = new EventManager(
+        $eventManager = new EventManager(
             // you may pass any other "PSR"'s compatible container here
             new ServiceManager()
         );
 
         // subscribe to some events
         // we need to pass a listener class name  and priority (optional)
-        $serviceManager->subscribe('user.created.event', TestUserCreatedEvent::class, 100);
-        $serviceManager->subscribe('user.deleted.event', TestUserDeletedEvent::class, 100);
+        $eventManager->subscribe('user.created.event', TestUserCreatedEvent::class, 100);
+        $eventManager->subscribe('user.deleted.event', TestUserDeletedEvent::class, 100);
 
         // we don't want to listen the "user.deleted.event" event any more
-        $serviceManager->unsubscribe('user.deleted.event', TestUserDeletedEvent::class);
+        $eventManager->unsubscribe('user.deleted.event', TestUserDeletedEvent::class);
 
 The **priority** is used to manage the exact order of listeners execution, if you need you that your listener will be executed first you need to specify a lower priority than other listeners do
 
@@ -127,12 +127,12 @@ Complete example
         use Tiny\EventManager\EventManager;
         use Tiny\ServiceManager\ServiceManager;
 
-        $serviceManager = new EventManager(
+        $eventManager = new EventManager(
             new ServiceManager()
         );
 
         // we need to know when new users are created
-        $serviceManager->subscribe('user.created.event', TestUserCreatedEvent::class);
+        $eventManager->subscribe('user.created.event', TestUserCreatedEvent::class);
 
         // notify subscribers about a new user
         $event = new Event([
@@ -141,7 +141,7 @@ Complete example
             'email' => 'tester@gmail.com'
         ]);
 
-        $serviceManager->trigger('user.created.event', $event);
+        $eventManager->trigger('user.created.event', $event);
 
         // the event's handler
         class TestUserCreatedEvent
